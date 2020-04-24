@@ -4,15 +4,31 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-class Main {
+public class Main {
   public static void main(String[] args) {
-    Map<String, String> cards = new LinkedHashMap<>();
+    Map<String, String> cards = new LinkedHashMap<>(); //LinkedHashMap usage for order guarantee
+    int numberOfCards;
     String userInputTerm;
     String userInputDefinition;
 
     System.out.println("Input the number of cards: ");
     Scanner scanner = new Scanner(System.in);
-    int numberOfCards = Integer.parseInt(scanner.nextLine());
+
+    /*
+     * Exception Handling if user entered characters as 'number of cards' inout
+     * */
+    while (true) {
+      try {
+        numberOfCards = Integer.parseInt(scanner.nextLine());
+        break;
+      } catch (NumberFormatException e) {
+        System.out.println("You've entered not numerical input. Try again:");
+      }
+    }
+
+    /*
+    * Adding new cards
+    * */
     for (int i = 1; i <= numberOfCards; i++) {
       System.out.println(String.format("The card #%s: ", i));
       do {
@@ -30,6 +46,10 @@ class Main {
       } while (cards.containsValue(userInputDefinition));
       cards.put(userInputTerm, userInputDefinition);
     }
+
+    /*
+    * Checking user's knowledge by cards definitions
+    * */
     for (Map.Entry<String, String> entry : cards.entrySet()) {
       System.out.println(String.format("Print the definition of \"%s\":", entry.getKey()));
       String userInputAnswer = scanner.nextLine();
