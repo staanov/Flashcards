@@ -51,6 +51,18 @@ subprojects {
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
+
+    run {
+        standardInput = System.in
+    }
+
+    jar {
+        manifest {
+            attributes(
+                    'Main-Class': 'flashcards.Main'
+            )
+        }
+    }
 }
 
 wrapper {
